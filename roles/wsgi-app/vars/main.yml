@@ -1,6 +1,6 @@
 application_dir: /srv/{{ app_label }}
 code_dir: "{{ application_dir }}/code"
-current_code_dir: "{{ code_dir }}/timestamp"
+current_code_dir: "{{ code_dir }}/{{ ansible_date_time.date }}_{{ ansible_date_time.time }}"
 archives_dir: "{{ application_dir }}/code/archives"
 archive_path: "{{ archives_dir }}/{{ code_archive | basename }}"
 log_dir: "{{ application_dir }}/logs"
