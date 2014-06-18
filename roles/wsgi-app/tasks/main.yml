@@ -6,7 +6,7 @@
   tags:
     - config-changed
   file:
-    src: "{{ code_dir }}/{{ code_archive | dirname }}"
+    src: "{{ current_code_dir }}"
     dest: "{{ code_dir }}/latest"
     owner: "{{ wsgi_user }}"
     group: "{{ wsgi_group }}"
@@ -22,7 +22,7 @@
   tags:
     - wsgi-file-relation-changed
     - config-changed
-  fail: msg="The configured current_symlink does not exist, {{ code_dir }}/{{ current_symlink }}"
+  fail: 'msg="The configured current_symlink does not exist, {{ code_dir }}/{{ current_symlink }}"'
   when: stat_current_symlink.stat.exists == False
 
 - name: Update the current symlink.

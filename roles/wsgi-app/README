@@ -11,16 +11,14 @@ charm config options, or as variables in your playbook):
 
 Required:
  * app_label - A label to identify your app - a domain will be fine.
- * code_archive - the relative name of your application code archive,
-   eg. "r25/my-app.bzip2", or "beta-test/my-app.bzip2".
+ * code_archive - The code archive location, either:
+   - a relative path within the charm eg. "r25/my-app.bzip2"
+   - a URL e.g. "https://example.com/my-code-archive.tar.gz"
  * wsgi_application - the location of your wsgi application relative to
    your code. This is passed to the wsgi provider. For example:
    "myproject.wsgi:application".
 
 Optional:
- * code_asset_uri - an optional uri from which the code_archive will be
-   sourced. Without this, it'll look for code_archive in the ${CHARM}/files
-   directory.
  * current_symlink - an optional label that can be used for rolling upgrades.
    By default this always points to the last installed code_archive. But you
    can explicitly request a previously installed version of your code to be

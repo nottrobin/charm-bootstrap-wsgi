@@ -1,27 +1,27 @@
 ---
-- name: Copy code_archive from the charm if not using code_assets_uri
+- name: "If code_archive is a path, copy from the path"
   tags:
     - config-changed
   copy:
-    src: "{{ charm_dir }}/files/{{ code_archive }}"
-    dest: "{{ archives_dir }}/{{ code_archive }}"
+    src: "{{ charm_dir }}/{{ code_archive }}"
+    dest: "{{ archives_dir }}"
     force: no
     owner: "{{ wsgi_user }}"
     group: "{{ wsgi_group }}"
     mode: 0644
-  when: code_assets_uri == ""
+  when: "'http://' not in code_archive and 'https://' not in code_archive"
 
-- name: Download code tarball archive from the code assets uri
+- name: "If code_archive is a URL, download code archive"
   tags:
     - config-changed
   get_url:
-    url: "{{ code_assets_uri }}/{{ code_archive }}"
-    dest: "{{ archives_dir }}/{{ code_archive }}"
+    url: "{{ code_archive }}"
+    dest: "{{ archives_dir }}"
     force: no
     owner: "{{ wsgi_user }}"
     group: "{{ wsgi_group }}"
     mode: 0644
-  when: code_assets_uri != ""
+  when: "'http://' in code_archive or 'https://' in code_archive"
 
 - name: Check if archive is already extracted
   tags:
@@ -33,7 +33,7 @@
   tags:
     - config-changed
   unarchive:
-    src: "{{ archives_dir }}/{{ code_archive }}"
+    src: "{{ archive_path }}"
     dest: "{{ current_code_dir }}"
     owner: "{{ wsgi_user }}"
     group: "{{ wsgi_group }}"

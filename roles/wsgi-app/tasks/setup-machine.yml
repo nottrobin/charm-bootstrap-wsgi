@@ -28,7 +28,6 @@
     - "{{ code_dir }}"
     - "{{ current_code_dir}}"
     - "{{ archives_dir }}"
-    - "{{ current_archive_dir }}"
     - "{{ log_dir }}"
     - "{{ local_oopses }}"
 
