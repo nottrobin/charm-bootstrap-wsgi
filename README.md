@@ -70,7 +70,7 @@ add further nagios checks depending on your needs).
 
 Assuming you've already deployed the example service, we first update
 the configuration so that the units continue to run the 'r1' build
-(current_symlink), while simultaneously ensuring that the 'r2' build
+('current' symlink), while simultaneously ensuring that the 'r2' build
 is installed and ready to run:
 ```
 $ juju set wsgi-example current_symlink=r1 build_label=r2

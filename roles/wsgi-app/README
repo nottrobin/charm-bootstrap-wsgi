@@ -19,9 +19,5 @@ Required:
    "myproject.wsgi:application".
 
 Optional:
- * current_symlink - an optional label that can be used for rolling upgrades.
-   By default this always points to the last installed code_archive. But you
-   can explicitly request a previously installed version of your code to be
-   used instead.
  * listen_port - the port on which the wsgi provider should serve your app.
  * env_extra - extra environment variables to pass to the wsgi-file provider.
