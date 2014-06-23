@@ -9,7 +9,7 @@
     owner: "{{ wsgi_user }}"
     group: "{{ wsgi_group }}"
     mode: 0644
-  when: "'http://' not in code_archive and 'https://' not in code_archive"
+  when: "code_archive > '' and 'http://' not in code_archive and 'https://' not in code_archive"
 
 - name: "If code_archive is a URL, download code archive"
   tags:
@@ -37,7 +37,7 @@
     dest: "{{ current_code_dir }}"
     owner: "{{ wsgi_user }}"
     group: "{{ wsgi_group }}"
-  when: already_extracted.stat.exists == False
+  when: code_archive > "" and already_extracted.stat.exists == False
 
 # The following is only necessary because the unarchived code files
 # won't have the correct user/group.
