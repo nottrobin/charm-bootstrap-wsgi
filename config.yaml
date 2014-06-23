@@ -13,6 +13,19 @@ options:
         description: >
             The WSGI application within the archive, in Python notation
             E.g.: my_app.wsgi:application
+    requirements_path:
+        default: ''
+        type: string
+        description: >
+            The location of the requirements file within the archive.
+            Requirements in this file will be installed with `pip install`
+    pip_cache_path:
+        default: ''
+        type: string
+        description: >
+            The location of the pip-cache to install requirements from.
+            If pip-cache is present, pip will not attempt to connect to PyPi,
+            and instead look for requirements in the specified cache folder.
     apt_dependencies:
         default: ''
         type: string
