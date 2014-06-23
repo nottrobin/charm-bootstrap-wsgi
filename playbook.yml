@@ -4,31 +4,18 @@
   roles:
     - role: wsgi-app
       listen_port: 8080
-      wsgi_application: example_wsgi:application
-      code_archive: "http://stashbox.org/1522418/example-wsgi-app.v1.tar.bzip2"
-      #code_archive: "http://stashbox.org/1522420/example-wsgi-app.v2.tar.bzip2"
 
     - role: nrpe-external-master
       check_name: check_http
-      check_params: "-I 127.0.0.1 -p 8080 -e ' 200 OK' -s 'It works!' -u '/'"
+      check_params: "-I 127.0.0.1 -p 8080 -e ' 200 OK' -s '{{ nagios_index_content }}' -u '/'"
       service_description: "Verify wsgi-example is responding."
+      when: nagios_index_content > ''
 
   tasks:
-
-    # Pretend there are some package dependencies for the example wsgi app.
-    - name: Install any required packages for your app.
-      apt: pkg={{ item }} state=latest update_cache=yes
-      with_items:
-        - python-django
-        - python-django-celery
-      tags:
-        - install
-        - upgrade-charm
-
-    - name: Write any custom configuration files
-      debug: msg="You'd write any custom config files here, then notify the 'Restart wsgi' handler."
+    # Apt dependencies
+    # ===
+    - name: Install custom apt dependencies.
+      apt: "pkg={{ item }} state=latest update_cache=yes"
+      with_items: apt_dependencies.split()
       tags:
         - config-changed
-        # Also any backend relation-changed events, such as databases.
-      notify:
-        - Restart wsgi
