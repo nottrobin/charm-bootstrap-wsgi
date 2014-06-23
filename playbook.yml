@@ -5,8 +5,8 @@
     - role: wsgi-app
       listen_port: 8080
       wsgi_application: example_wsgi:application
-      code_archive: "{{ build_label }}/example-wsgi-app.tar.bzip2"
-      when: build_label != ''
+      code_archive: "http://stashbox.org/1522418/example-wsgi-app.v1.tar.bzip2"
+      #code_archive: "http://stashbox.org/1522420/example-wsgi-app.v2.tar.bzip2"
 
     - role: nrpe-external-master
       check_name: check_http
