@@ -5,7 +5,7 @@ This repo is a template charm for any [juju][1] deployed wsgi service.
 As is, this charm deploys an example wsgi service with nagios checks and simple
 rolling upgrades.
 
-You can re-use this charm to deploy any wsgi service by updating the
+You can re-use this charm to deploy any wsgi service by setting config options or updating the
 playbook.yaml file. All of the wsgi functionality is provided
 by a reusable wsgi-app ansible role (see roles/wsgi-app) together
 with the gunicorn charm.
@@ -15,7 +15,7 @@ either ansible or juju - but if you know a bit about both, it will
 show you how you can easily use them together.
 
 
-## Example - a simple application
+## Example
 
 If you've got a [bootstrapped juju environment](https://juju.ubuntu.com/docs/getting-started.html), and have [`juju-git-deploy`](https://pypi.python.org/pypi/juju-git-deploy/0.1.1) installed then you can deploy an example WSGI application as follows:
 
@@ -42,7 +42,7 @@ juju run --service wsgi-example "curl -s http://localhost:8080"
 It works! Revision 1
 ```
 
-## Upgrading the application
+### Code updates
 
 To upgrade the application code, simply provide a URL to the new archive (NB: the URL must be different):
 
@@ -59,7 +59,7 @@ juju run --service wsgi-example "curl -s http://localhost:8080"
 It works! Revision 2
 ```
 
-## Nagios setup
+### Nagios setup
 
 Setting up a simple [nagios](http://www.nagios.org/) check is trivial:
 
@@ -87,7 +87,7 @@ USERS OK - 0 users currently logged in |users=0;20;25;0
 PROCS OK: 0 processes with STATE = Z | procs=0;3;6;0;
 ```
 
-## Your custom deployment code
+## Custom deployments
 
 You can set your own archive URL or path, WSGI application location, apt dependencies
 and Nagios check content using the [juju config options](https://juju.ubuntu.com/docs/charms-config.html)
@@ -111,18 +111,19 @@ The nagios check used for your app can be updated by adjusting the
 check_params passed to the role in playbook.yml (or you can additionally
 add further nagios checks depending on your needs).
 
-### Note about test Dependencies
+### Testing
 
-The makefile to run tests requires the following dependencies
+Tests require [nose](https://pypi.python.org/pypi/nose/1.3.3) [mock](https://pypi.python.org/pypi/mock) and [flake8](https://pypi.python.org/pypi/flake8) which can be installed as follows:
 
-- python-nose
-- python-mock
-- python-flake8
-
-installable via:
-
+``` bash
+sudo apt-get install python-nose python-mock python-flake8
 ```
-$ sudo apt-get install python-nose python-mock python-flake8
+
+Tests can then be run from within the project directory:
+
+``` bash
+PYTHONPATH=./hooks
+nosetests --nologcapture unit_tests
 ```
 
 [1]: http://juju.ubuntu.com/
