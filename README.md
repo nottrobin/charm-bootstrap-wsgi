@@ -21,14 +21,14 @@ If you've got a [bootstrapped juju environment](https://juju.ubuntu.com/docs/get
 
 ``` bash
 # Deploy example wsgi charm
-juju git-deploy -s precise nottrobin/charm-bootstrap-wsgi wsgi-example
+juju git-deploy -s trusty nottrobin/charm-bootstrap-wsgi wsgi-example
 
 # Set code package URL and WSGI app location
 juju set wsgi-example code_archive="http://stashbox.org/1522418/example-wsgi-app.v1.tar.bzip2"
 juju set wsgi-example wsgi_application="example_wsgi:application"
 
 # Add gunicorn server subordinate
-juju deploy gunicorn
+juju deploy cs:~webteam-backend/trusty/gunicorn
 juju add-relation wsgi-example gunicorn
 ```
 
@@ -68,7 +68,7 @@ Setting up a simple [nagios](http://www.nagios.org/) check is trivial:
 juju set wsgi-example nagios_index_content="It works!"
 
 # Add nagios charm and relation
-juju deploy precise/nrpe-external-master
+juju deploy cs:~webteam-backend/trusty/nrpe-external-master
 juju add-relation wsgi-example nrpe-external-master
 ```
 
