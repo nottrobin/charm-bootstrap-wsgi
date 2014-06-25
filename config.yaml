@@ -6,7 +6,12 @@ options:
             The build label given to the code archive and corresponding to
             the path from which the archived code should be installed.
             For example, a value of 'r2' tells the charm to use
-            the archive at 'r2/example-wsgi-app.tar.bzip2'.
+            the archive at 'r2/code_archive.tgz'.
+    archive_filename:
+        default: ""
+        type: string
+        description: >
+            The filename for the archive - e.g. "code_archive.tgz"
     current_symlink:
         default: "latest"
         type: string
