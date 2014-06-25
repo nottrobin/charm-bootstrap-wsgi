@@ -17,21 +17,10 @@
       service_description: "Verify wsgi-example is responding."
 
   tasks:
-
-    # Pretend there are some package dependencies for the example wsgi app.
-    - name: Install any required packages for your app.
-      apt: pkg={{ item }} state=latest update_cache=yes
-      with_items:
-        - python-django
-        - python-django-celery
-      tags:
-        - install
-        - upgrade-charm
-
-    - name: Write any custom configuration files
-      debug: msg="You'd write any custom config files here, then notify the 'Restart wsgi' handler."
+    # Apt dependencies
+    # ===
+    - name: Install custom apt dependencies.
+      apt: "pkg={{ item }} state=latest update_cache=yes"
+      with_items: apt_dependencies.split()
       tags:
         - config-changed
-        # Also any backend relation-changed events, such as databases.
-      notify:
-        - Restart wsgi

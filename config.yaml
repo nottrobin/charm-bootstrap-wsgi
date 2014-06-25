@@ -15,3 +15,7 @@ options:
             the most recently added build on the instance.  Specifying a
             differnt label (eg. "r235") will symlink to that directory assuming
             it has been previously added to the instance.
+    apt_dependencies:
+        default: ''
+        type: string
+        description: A space-separated list of apt dependencies to install
