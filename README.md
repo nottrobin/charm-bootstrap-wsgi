@@ -59,7 +59,11 @@ juju run --service wsgi-example "curl -s http://localhost:8080"
 It works! Revision 2
 ```
 
-### Nagios setup
+## Relations
+
+Apart from the essential WSGI server relation described above, this charm can be related to the following services:
+
+### [Nagios](https://github.com/charms/nrpe-external-master)
 
 Setting up a simple [nagios](http://www.nagios.org/) check is trivial:
 
@@ -85,6 +89,24 @@ SWAP OK - 100% free (0 MB out of 0 MB) |swap=0MB;0;0;0;0
 PROCS OK: 39 processes | procs=39;150;200;0;
 USERS OK - 0 users currently logged in |users=0;20;25;0
 PROCS OK: 0 processes with STATE = Z | procs=0;3;6;0;
+```
+
+### [HAProxy](https://github.com/charms/haproxy) 
+
+Deploy haproxy and relate it to wsgi-example:
+
+``` bash
+juju deploy haproxy
+juju add-relation haproxy wsgi-example
+```
+
+Check the proxy is working properly:
+
+``` bash
+juju run --service haproxy "curl -s http://localhost"
+
+# Expected output
+It works! Revision 2
 ```
 
 ## Custom deployments
