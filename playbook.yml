@@ -1,9 +1,6 @@
 ---
 - hosts: localhost
 
-  vars:
-    - app_label: wsgi-app.example.com
-
   roles:
     - role: wsgi-app
       listen_port: 8080
