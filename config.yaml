@@ -32,3 +32,6 @@ options:
         default: ''
         type: string
         description: A space-separated list of apt dependencies to install
+    nagios_index_content:
+        default: ""
+        type: string
