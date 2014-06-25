@@ -17,9 +17,10 @@ options:
         type: string
         description: >
             An optional URI to download the archive from
-            NB: This shouldn't be the whole URI but the earlier part
-            (e.g.: 'https://example.com/AUTH/container/') for this format:
+            This shouldn't be the whole URI but the earlier part
+            (e.g.: 'https://example.com/AUTH/container') for this format:
             {{ code_assets_uri }}/{{ build_label }}/{{ archive_filename }}
+            NB: The URI should *not* include a trailing slash
     wsgi_application:
         default: ''
         type: string
