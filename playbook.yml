@@ -24,3 +24,19 @@
       with_items: apt_dependencies.split()
       tags:
         - config-changed
+
+    # Pip requirements
+    # ===
+    - name: Install pip if we need to install requirements.
+      apt: "pkg={{ item }} state=latest update_cache=yes"
+      with_items:
+        - python-pip
+      tags:
+        - config-changed
+      when: requirements_path > ""
+
+    - name: Install pip requirements from PyPi
+      pip: "requirements='{{ current_code_dir }}/{{ requirements_path }}'"
+      tags:
+        - config-changed
+      when: requirements_path > ""

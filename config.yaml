@@ -15,6 +15,12 @@ options:
             the most recently added build on the instance.  Specifying a
             differnt label (eg. "r235") will symlink to that directory assuming
             it has been previously added to the instance.
+    requirements_path:
+        default: ''
+        type: string
+        description: >
+            The location of the requirements file within the archive.
+            Requirements in this file will be installed with `pip install`
     apt_dependencies:
         default: ''
         type: string
