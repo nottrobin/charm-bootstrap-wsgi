@@ -4,7 +4,6 @@
   roles:
     - role: wsgi-app
       listen_port: 8080
-      wsgi_application: example_wsgi:application
       code_archive: "{{ build_label }}/{{ archive_filename }}"
       when: build_label > '' and archive_filename > ''
 

@@ -12,6 +12,12 @@ options:
         type: string
         description: >
             The filename for the archive - e.g. "code_archive.tgz"
+    wsgi_application:
+        default: ''
+        type: string
+        description: >
+            The WSGI application within the archive, in Python notation
+            E.g.: my_app.wsgi:application
     current_symlink:
         default: "latest"
         type: string
