@@ -12,6 +12,14 @@ options:
         type: string
         description: >
             The filename for the archive - e.g. "code_archive.tgz"
+    code_assets_uri:
+        default: ""
+        type: string
+        description: >
+            An optional URI to download the archive from
+            NB: This shouldn't be the whole URI but the earlier part
+            (e.g.: 'https://example.com/AUTH/container/') for this format:
+            {{ code_assets_uri }}/{{ build_label }}/{{ archive_filename }}
     wsgi_application:
         default: ''
         type: string
