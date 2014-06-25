@@ -39,4 +39,10 @@
       pip: "requirements='{{ current_code_dir }}/{{ requirements_path }}'"
       tags:
         - config-changed
-      when: requirements_path > ""
+      when: requirements_path > "" and pip_cache_path == ""
+
+    - name: Install pip requirements from pip cache
+      pip: "requirements='{{ current_code_dir }}/{{ requirements_path }}' extra_args='--no-index --find-links={{ current_code_dir }}/{{ pip_cache_path }}'"
+      tags:
+        - config-changed
+      when: requirements_path > "" and pip_cache_path > ""
